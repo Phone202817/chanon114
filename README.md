@@ -6,9 +6,9 @@ True Wallet API PHP wrapper.
 
 PHP script using curl to get transaction data from True Wallet account.
 
-# Usage
+## Usage
 
-Include our function and login with True Wallet account.
+Include our class and login with your True Wallet account.
 ```
 include_once('manager/TrueWallet.php');
 $wallet = new TrueWallet();
@@ -16,27 +16,32 @@ $wallet->login(username,password);
 ```
 See all functions down below, full example can be found in [example.php](https://github.com/popiazaza/truewallet-api-wrapper/blob/master/example.php)
 
-# Functions
+## Functions
 
 - function login(username,password)
+
 return true/false [Boolean]
 
 - function logout()
+
 return webpage data (Redirect page.) [String]
 
 - function get_profile()
+
 return profile array [Object]
 
 - function get_transactions()
+
 return 50 lastest transactions array [Object]
 
 - function function get_report(reportID)
+
 return full report [Object]
 
+## Data Example
 
-# Data Example
+- get_profile()
 
-get_profile()
 ```
 stdClass Object
 (
@@ -71,7 +76,8 @@ stdClass Object
 )
 ```
 
-get_transactions()
+- get_transactions()
+
 ```
     [0] => stdClass Object
         (
@@ -94,7 +100,9 @@ get_transactions()
       .
       .
 ```
-get_report()
+
+- get_report()
+
 ```
 stdClass Object
 (
@@ -207,8 +215,11 @@ stdClass Object
 ## Trobleshooting
 
 - curl: (60) SSL certificate : unable to get local issuer certificate
+
 This error commonly found in local server, read how to fix it on [Stackoverflow](http://stackoverflow.com/a/31830614).
+
 - Can't login even enter right username/password
+
 If you failed too many attempt to login, your account might get banned. You have to contact True Wallet support directly for further assistance.
 
 ## Milestones
@@ -220,12 +231,15 @@ If you failed too many attempt to login, your account might get banned. You have
 ## Contributors
 
 ### popiazaza
+
 Support me by paypal: kingkitb@gmail.com
 
 ### tkaewkunha
+
 This code is free to use. If you like it, please consider support me by paypal : tkaewkunha@gmail.com thank you.
 
 ## License
+
 True Wallet API Wrapper is 100% free and open-source.
 
 Copyright 2017 popiazaza
