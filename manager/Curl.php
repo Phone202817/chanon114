@@ -1,7 +1,7 @@
 <?php
 
 class Curl{
-    private $cookie = "cookie.txt";
+    private $cookie = realpath("cookie.txt");
     function __construct() {
         
     }
@@ -21,23 +21,14 @@ class Curl{
         curl_setopt($login, CURLOPT_FOLLOWLOCATION, TRUE);
         curl_setopt($login, CURLOPT_POST, TRUE);
         curl_setopt($login, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($login, CURLOPT_POSTFIELDS, $data);
-        ob_start();
-
-        if (curl_exec($login) === FALSE) {
-            die("Curl Failed: " . curl_error($login));
+        if (curl_exec($ch) === FALSE) {
+            return curl_error($ch);
         } else {
-            return curl_exec($login);
-        }           
+            return curl_exec($ch);
+        }       
     }                  
 
     public function grab_page($site){
-        if(file_exists($this->cookie)){
-           // ตั้งเงื่อนไขต่างๆได้ตามใจเลยจ้า;
-        }else{
-
-        }
-
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_SSLVERSION, 'SSLv3');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
@@ -45,11 +36,8 @@ class Curl{
         curl_setopt($ch, CURLOPT_TIMEOUT, 40);
         curl_setopt($ch, CURLOPT_COOKIEFILE, $this->cookie);
         curl_setopt($ch, CURLOPT_URL, $site);
-        ob_start();
-        ob_end_flush();
-
         if (curl_exec($ch) === FALSE) {
-            die("Curl Failed: " . curl_error($ch));
+            return curl_error($ch);
         } else {
             return curl_exec($ch);
         }
