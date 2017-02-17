@@ -30,7 +30,7 @@
 		public function get_profile(){
 			$profile = $this->curl->grab_page($this->profile_url);
 			if (strpos($profile, 'Whoops') !== false) {
-    			return false;
+    				return false;
 			}
 			$profile_obj  = json_decode($profile);
 			return $profile_obj;
@@ -39,20 +39,21 @@
 		public function get_transactions(){
 			$trans = $this->curl->grab_page($this->history_url);
 			if (strpos($trans, 'Whoops') !== false) {
-    			return false;
+    				return false;
 			}
 			$trans_obj  = json_decode($trans);
-			$arr_trans = $trans_obj->data->activities;
-			return $arr_trans;
+			$trans_data = $trans_obj->data->activities;
+			return $trans_data;
 		}
 
 		public function get_report($report_id){
 			$report = $this->curl->grab_page($this->report_url.$report_id);
 			if (strpos($report, 'Whoops') !== false) {
-    			return false;
+    				return false;
 			}
-			$json_report = json_decode($report);
-			return $json_report;
+			$report_obj = json_decode($report);
+			$report_data = $report_obj->data;
+			return $report_data;
 		}
 	}
 ?>
