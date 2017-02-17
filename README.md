@@ -1,42 +1,43 @@
-# true-wallet-crewler
+# True Wallet API Wrapper
 
-# เกี่ยวกับ
+True Wallet API PHP wrapper.
 
-โค๊ดดึงข้อมูลข้อทางการเงินของบัญชี True Wallet สามารถดึงข้อมูลทางการเงินย้อนหลังของบัญชีทรูวอลเลตได้ รวมไปถึงรายละเอียดเช่น วันที่ เวลา ที่โอน เบอร์โทร ชื่อผู้ทำรายการ รวมไปถึงหมายเลขอ้างอิง (Transaction ID)ซึ่งเป็นหมายเลขประจำรายการนั้นๆและเป็นเลขที่ไม่ซ้ำกับรายการอื่น
-ซึ่งเมื่อได้หมายเลขโทรศัพ และ หมายเลขอ้างอิงนี้แล้ว สามารถ นำไปประยุคสร้าง ระบบส่งของให้กับลูกค้าอัตโนมัติผ่านทางอีเมลได้
+## Overview
 
-เช่น ขาย ระหัสเกม ราคา 1500 บาท 
-เมื่อลูกค้าโอนเงินเข้ามาในบัญชีคุณ 1500 บาทแล้ว ให้ลูกค้ากดยืนยันการโอน
-และให้ลูกค้า กรอกหมายเลขอ้างอิงการโอน และเบอร์โทรศัพท์ที่โอน เพื่อยืนยันการโอนเงิน
-จากนั้นคุณก็เขียนโค๊ดให้ส่งระหัส ที่เป็นสินค้าของคุณให้กับลูกค้าได้โดยอัตโนมัติ
+PHP script using curl to get transaction data from True Wallet account.
 
-# การทำงาน
+# Usage
 
-การทำงานของโค๊ดชุดนี้ จะส่ง Request Login ไปยัง TrueWallet และดึงข้อออกมา โดยใช้ Curl  โดยโค๊ดนี้ไม่มีการเก็บข้อมูลของท่านแต่อย่างใด(ไม่เชื่อก็ลองไล่โค๊ดดูได้ครับแหะๆ)
+Include our function and login with True Wallet account.
+```
+include_once('manager/TrueWallet.php');
+$wallet = new TrueWallet();
+$wallet->login(username,password);
+```
+See all functions down below, full example can be found in [example.php](https://github.com/popiazaza/truewallet-api-wrapper/blob/master/example.php)
 
-# วิธีใช้
-ที่ index.php จะมีตัวอย่างการใช้งานพร้อมคำอธิบายอยู่ แต่ผมจะอธิบายให้อีกรอบ
-แก้ไขตัวแปร username , password ให้ตรงามข้อมูลจริงของท่าน
+# Functions
 
-function login(username,password)
+- function login(username,password)
+return true/false [Boolean]
 
-function logout()
+- function logout()
+return webpage data (Redirect page.) [String]
 
-function get_profile() 
-ดึงข้อมูลส่วนตัว
+- function get_profile()
+return profile array [Object]
 
-function get_transactions() 
-ดึงข้อมูลรายการเดินบัญชี 50 รายการล่าสุด
+- function get_transactions()
+return 50 lastest transactions array [Object]
 
-function get_report(reportID)
-ดึงข้อมูลการโอนอย่างละเอียด โดยใช้ reportID ที่ได้จาก get_transactions()
-ซึ่ง จำเป็นจะส่งเป็น reportID ให้กับฟังก์ชั้นนี้ ซึ่งผมที่ได้จาก ฟังก์ชั่นนี้จะละเอียดไปจนถึง วันเวลา ที่โอน ชื่อผู้โอน ข้อความจากผู้โอน รวมไปถึงหมายเลขอ้างอิงด้วย
+- function function get_report(reportID)
+return full report [Object]
 
 
-# ตัวอย่างข้อมูล
+# Data Example
 
-get_profile
-
+get_profile()
+```
 stdClass Object
 (
     [email] => youremail@domain.com
@@ -68,9 +69,10 @@ stdClass Object
         )
 
 )
+```
 
-ตัวอย่างข้อมูลที่ได้จาก get_transactions()
-
+get_transactions()
+```
     [0] => stdClass Object
         (
             [reportID] => 12345678
@@ -91,10 +93,9 @@ stdClass Object
       .
       .
       .
-
-
-ตัวอย่างข้อมูลที่ได้จาก get_report()
-
+```
+get_report()
+```
 stdClass Object
 (
     [amount] => 500/-1500
@@ -201,7 +202,36 @@ stdClass Object
     [isFavoritable] => no
     [serviceType] => transfer
 )
+```
 
-# ทิ้งทาย
-โค๊ดนี้ฟรีครับ
-ถ้าใช้แล้วถูกใจ แล้วกรุณาอยากสนับสนุนก็สามารถทำได้ที่ paypal : tkaewkunha@gmail.com จะถือเป็นความกรุณาอย่างสูงครับ
+## Trobleshooting
+
+- curl: (60) SSL certificate : unable to get local issuer certificate
+This error commonly found in local server, read how to fix it on [Stackoverflow](http://stackoverflow.com/a/31830614).
+- Can't login even enter right username/password
+If you failed too many attempt to login, your account might get banned. You have to contact True Wallet support directly for further assistance.
+
+## Milestones
+
+- Add shortcut functions to easier get data.
+- Format codes and create a composer package.
+- Create full functional system.
+
+## Contributors
+
+### popiazaza
+Support me by paypal: kingkitb@gmail.com
+
+### tkaewkunha
+This code is free to use. If you like it, please consider support me by paypal : tkaewkunha@gmail.com thank you.
+
+## License
+True Wallet API Wrapper is 100% free and open-source.
+
+Copyright 2017 popiazaza
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
