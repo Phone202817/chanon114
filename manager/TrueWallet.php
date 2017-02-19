@@ -15,11 +15,7 @@
 			$email = str_replace('@', '%40', $email);
 			$data = "email=".$email."&password=".$password;
 			$login  = $this->curl->login($this->login_url, $data);
-			if(strpos($login, 'Whoops') !== false){
-    			return false;
-			}else{
-				return true;
-			}
+			return $login;
 		}
 		
 		public function logout(){
@@ -28,32 +24,32 @@
 		}
 	
 		public function get_profile(){
-			$profile = $this->curl->grab_page($this->profile_url);
-			if (strpos($profile, 'Whoops') !== false) {
-    				return false;
+			if($profile = $this->curl->grab_page($this->profile_url)){
+    			$profile_obj  = json_decode($profile);
+				return $profile_obj;
+			}else{
+				return $profile;
 			}
-			$profile_obj  = json_decode($profile);
-			return $profile_obj;
 		}
 		
 		public function get_transactions(){
-			$trans = $this->curl->grab_page($this->history_url);
-			if (strpos($trans, 'Whoops') !== false) {
-    				return false;
+			if($trans = $this->curl->grab_page($this->history_url)){
+				$trans_obj  = json_decode($trans);
+				$trans_data = $trans_obj->data->activities;
+				return $trans_data;
+			}else{
+				return $trans;
 			}
-			$trans_obj  = json_decode($trans);
-			$trans_data = $trans_obj->data->activities;
-			return $trans_data;
 		}
 
 		public function get_report($report_id){
-			$report = $this->curl->grab_page($this->report_url.$report_id);
-			if (strpos($report, 'Whoops') !== false) {
-    				return false;
+			if($report = $this->curl->grab_page($this->report_url.$report_id)){
+				$report_obj = json_decode($report);
+				$report_data = $report_obj->data;
+				return $report_data;
+			}else{
+				return $report;
 			}
-			$report_obj = json_decode($report);
-			$report_data = $report_obj->data;
-			return $report_data;
 		}
 	}
 ?>
