@@ -10,7 +10,7 @@ $password = "";
 //Logout incase your previous session still exist, no need if you only use 1 user.
 $wallet->logout();
 //Login into TrueWallet
-if($wallet->login($setting['username'],$setting['password'])){
+if($wallet->login($username,$password)){
 	//Get current profile.
 	if($profile = $wallet->get_profile()){
 		echo "<pre>";
@@ -36,24 +36,24 @@ if($wallet->login($setting['username'],$setting['password'])){
 	//(Later)Fetch your lastest report number here.
 	$last_report = 0;
 	//Get new transactions.
-	foreach($trans as $tran){
+	foreach($transaction as $tran){
 		//Get transaction type.
 		$tran_type = $tran->text3En;
 		//Get transaction report id.
 		$tran_report = $tran->reportID;
 		if($tran_type == 'creditor' && $tran_report > $last_report){
 			$tran_from = $tran->text5Th; // 081-234-5678
-			$last_report = $tran->reportID // 123456789
-			echo '['.$tran_reportID.'] Creditor from '.$tran_from.'<br>';
+			$tran_reportID = $tran->reportID; // 123456789
 			//Get full report.
 			$full_report = $wallet->get_report($tran_reportID);
 			//Get message from transaction.
-			$message = $full_report->data->personalMessage->data;
+			$tran_message = $full_report->personalMessage->value;
+			echo '['.$tran_reportID.'] '.$tran_type.' from '.$tran_from.' with message: '.$tran_message.'<br>';
 			//(Later)Do stuff.
 		}
 	}
 	//Get lastest 'creditor' transaction report id.
-	foreach($trans as $tran){
+	foreach($transaction as $tran){
 		$tran_type = $tran->text3En;
 		if($tran_type == 'creditor'){
 			/*
