@@ -1,9 +1,9 @@
 <?php
 
 class Curl{
-    private $cookie = realpath("cookie.txt");
+    private $cookie = "cookie.txt";
     function __construct() {
-        
+        $this->cookie = realpath($this->cookie);
     }
 
     public function login($url, $data){
@@ -21,10 +21,12 @@ class Curl{
         curl_setopt($login, CURLOPT_FOLLOWLOCATION, TRUE);
         curl_setopt($login, CURLOPT_POST, TRUE);
         curl_setopt($login, CURLOPT_POSTFIELDS, $data);
-        if (curl_exec($ch) === FALSE) {
-            return curl_error($ch);
+		curl_setopt($login, CURLOPT_POSTFIELDS, $data);
+		$curl_result = curl_exec($login);
+        if ($curl_result === FALSE) {
+            return curl_error($login);
         } else {
-            return curl_exec($ch);
+            return $curl_result;
         }       
     }                  
 
@@ -36,10 +38,11 @@ class Curl{
         curl_setopt($ch, CURLOPT_TIMEOUT, 40);
         curl_setopt($ch, CURLOPT_COOKIEFILE, $this->cookie);
         curl_setopt($ch, CURLOPT_URL, $site);
-        if (curl_exec($ch) === FALSE) {
+		$curl_result = curl_exec($ch);
+        if ($curl_result === FALSE) {
             return curl_error($ch);
         } else {
-            return curl_exec($ch);
+            return $curl_result;
         }
     }
 }
