@@ -18,25 +18,35 @@ See all functions down below, full example can be found in [example.php](https:/
 
 ## Functions
 
-- function login(username,password)
+### [function login(username,password)](https://github.com/popiazaza/truewallet-api-wrapper/blob/a18f800230301d229458a5937bb3fcd44629ed39/manager/TrueWallet.php#L14-L19)
 
-return true/false [Boolean]
+Login into True Wallet account with given username & password.
 
-- function logout()
+return (string)login page data or (boolean)false if failed to login.
 
-return webpage data (Redirect page.) [String]
+### [function logout()](https://github.com/popiazaza/truewallet-api-wrapper/blob/a18f800230301d229458a5937bb3fcd44629ed39/manager/TrueWallet.php#L21-L24)
 
-- function get_profile()
+Logout from previous True Wallet account.
 
-return profile array [Object]
+return (string)logout page data.
 
-- function get_transactions()
+### [function get_profile()](https://github.com/popiazaza/truewallet-api-wrapper/blob/a18f800230301d229458a5937bb3fcd44629ed39/manager/TrueWallet.php#L26-L33)
 
-return 50 lastest transactions array [Object]
+Get profile from current True Wallet account.
 
-- function function get_report(reportID)
+return (array object)user profile or (boolean)false if not login yet.
 
-return full report [Object]
+### [function get_transactions()](https://github.com/popiazaza/truewallet-api-wrapper/blob/a18f800230301d229458a5937bb3fcd44629ed39/manager/TrueWallet.php#L35-L43)
+
+Get 50 lastest transactions from current True Wallet account.
+
+return (array object)50 lastest transactions or (boolean)false if not login yet.
+
+### [function function get_report(reportID)](https://github.com/popiazaza/truewallet-api-wrapper/blob/a18f800230301d229458a5937bb3fcd44629ed39/manager/TrueWallet.php#L45-L53)
+
+Get full report of the transaction from given reportID.
+
+return (array object)full report of the transaction or (boolean)false if not login yet.
 
 ## Data Example
 
@@ -230,13 +240,13 @@ If you failed too many attempt to login, your account might get banned. You have
 
 ## Contributors
 
-### popiazaza
+### [popiazaza](https://github.com/popiazaza)
 
-Support me by paypal: kingkitb@gmail.com
+Donate via paypal: kingkitb@gmail.com or help us by write few lines of code into this github project!
 
-### tkaewkunha
+### [Tkaewkunha](https://github.com/Tkaewkunha)
 
-This code is free to use. If you like it, please consider support me by paypal : tkaewkunha@gmail.com thank you.
+This code is free to use. If you like it, please consider support me via paypal: tkaewkunha@gmail.com thank you.
 
 ## License
 
