@@ -23,10 +23,14 @@ class Curl{
         curl_setopt($login, CURLOPT_POSTFIELDS, $data);
 		curl_setopt($login, CURLOPT_POSTFIELDS, $data);
 		$curl_result = curl_exec($login);
-        if ($curl_result === FALSE) {
-            return curl_error($login);
-        } else {
-            return $curl_result;
+        if($curl_result === FALSE){
+            die(curl_error($login));
+        }else{
+            if(strpos($curl_result, 'Whoops') !== false){
+    			return false;
+			}else{
+				return $curl_result;
+			}
         }       
     }                  
 
@@ -39,10 +43,14 @@ class Curl{
         curl_setopt($ch, CURLOPT_COOKIEFILE, $this->cookie);
         curl_setopt($ch, CURLOPT_URL, $site);
 		$curl_result = curl_exec($ch);
-        if ($curl_result === FALSE) {
-            return curl_error($ch);
-        } else {
-            return $curl_result;
+        if($curl_result === FALSE){
+            die(curl_error($ch));
+        }else{
+			if(strpos($curl_result, 'Whoops') !== false){
+    			return false;
+			}else{
+				return $curl_result;
+			}
         }
     }
 }
