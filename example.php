@@ -24,7 +24,7 @@ if($wallet->login($username,$password)){
 		echo "</pre>";
 	}
 	//Get full report of transaction.
-	if($transaction&&$report = $wallet->get_report($transaction[0]->reportID)){
+	if(($transaction[0]&&$report = $wallet->get_report($transaction[0]->reportID)){
 		echo "<pre>";
 		print_r($report);
 		echo "</pre>";
