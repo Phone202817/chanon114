@@ -33,29 +33,32 @@ if($wallet->login($username,$password)){
 	//Get mobile number
 	$mobile_number = $profile->mobileNumber; // 081-234-5678
 	echo 'Mobile Number: '.$mobile_number.'<br>';
-	//(Later)Fetch your lastest report number here.
+	$report_type_want = 'creditor';
 	$last_report = 0;
+	//(Later)Fetch your lastest report number here.
 	//Get new transactions.
 	foreach($transaction as $tran){
 		//Get transaction type.
 		$tran_type = $tran->text3En;
 		//Get transaction report id.
 		$tran_report = $tran->reportID;
-		if($tran_type == 'creditor' && $tran_report > $last_report){
-			$tran_from = $tran->text5Th; // 081-234-5678
-			$tran_reportID = $tran->reportID; // 123456789
+		if($tran_type == $report_type_want && $tran_report > $last_report){
+			$tran_reportID = $tran->reportID;
 			//Get full report.
 			$full_report = $wallet->get_report($tran_reportID);
-			//Get message from transaction.
+			//Get information from transaction.
+			$tran_amount = $full_report->amount;
+			$tran_from = $full_report->ref1;
 			$tran_message = $full_report->personalMessage->value;
-			echo '['.$tran_reportID.'] '.$tran_type.' from '.$tran_from.' with message: '.$tran_message.'<br>';
+			echo '['.$tran_reportID.'] '.$tran_amount.'฿ '.$tran_type.' from '.$tran_from.' with message: '.$tran_message.'<br>';
+			//Ex. [12345678] 1500฿ from 0812345678 with message test
 			//(Later)Do stuff.
 		}
 	}
 	//Get lastest 'creditor' transaction report id.
 	foreach($transaction as $tran){
 		$tran_type = $tran->text3En;
-		if($tran_type == 'creditor'){
+		if($tran_type == $report_type_want){
 			/*
 			Get lastest transaction report number of 'creditor'
 			Note: Different transaction type may use different report id group.
