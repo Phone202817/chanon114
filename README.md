@@ -228,6 +228,10 @@ stdClass Object
 
 This error commonly found in local server, read how to fix it on [Stackoverflow](http://stackoverflow.com/a/31830614).
 
+- Other SSL/TLS problem
+
+Try to upgrade curl version.
+
 - Can't login even enter right username/password
 
 If you failed too many attempt to login, your account might get banned. You have to contact True Wallet support directly for further assistance.
