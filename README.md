@@ -230,7 +230,21 @@ This error commonly found in local server, read how to fix it on [Stackoverflow]
 
 - Other SSL/TLS problem
 
-Try to upgrade curl version.
+Check your curl version by create a php file with these code.
+```
+<?php
+echo '<pre>';
+print_r(curl_version());
+echo '</pre>';
+?>
+```
+Open that php file and see what's your curl version and ssl support. If you curl is too old [(check lastest version here)](https://curl.haxx.se/download.html) or it doesn't support OpenSSL, you have to upgrade it.
+If you or your hosting can't upgrade it, you have to disable ssl in 2 functions in manager/Curl.php after curl_init().
+(NOT RECOMMENDED)
+```
+curl_setopt($login/$ch, CURLOPT_SSL_VERIFYHOST, 0);
+curl_setopt($login/$ch, CURLOPT_SSL_VERIFYPEER, 0);
+```
 
 - Can't login even enter right username/password
 
