@@ -232,6 +232,10 @@ This error commonly found in local server, read how to fix it on [Stackoverflow]
 
 Check your cURL version and openssl extension. If they're old or not enable yet, please fix it.
 
+- Login successful but can't get any data from APIs.
+
+Make sure your script can write cookie.txt, chmod 755 to fix it.
+
 - Can't login even enter right username/password
 
 If you failed too many attempt to login, your account might get banned. You have to contact True Wallet support directly for further assistance.
