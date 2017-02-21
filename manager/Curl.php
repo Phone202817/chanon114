@@ -1,9 +1,9 @@
 <?php
 
 class Curl{
-    private $cookie = "cookie.txt";
+    private $cookie;
     function __construct() {
-        $this->cookie = realpath($this->cookie);
+        $this->cookie = dirname(dirname(__FILE__)).'/cookie.txt';
     }
 
     public function login($url, $data){
@@ -11,7 +11,7 @@ class Curl{
         fclose($fp);
 
         $login = curl_init();
-	curl_setopt($login, CURLOPT_SSLVERSION, 6);
+		curl_setopt($login, CURLOPT_SSLVERSION, 6);
         curl_setopt($login, CURLOPT_COOKIEJAR, $this->cookie);
         curl_setopt($login, CURLOPT_COOKIEFILE, $this->cookie);
         curl_setopt($login, CURLOPT_TIMEOUT, 40000);
@@ -36,7 +36,7 @@ class Curl{
 
     public function grab_page($site){
         $ch = curl_init();
-	curl_setopt($ch, CURLOPT_SSLVERSION, 6);
+		curl_setopt($ch, CURLOPT_SSLVERSION, 6);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
         curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36");
         curl_setopt($ch, CURLOPT_TIMEOUT, 40);
