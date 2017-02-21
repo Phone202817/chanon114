@@ -43,15 +43,15 @@ if($wallet->login($username,$password)){
 		//Get transaction report id.
 		$tran_report = $tran->reportID;
 		if($tran_type == $report_type_want && $tran_report > $last_report){
-			$tran_reportID = $tran->reportID;
+			$tran_reportID = $tran->reportID; // 12345678
 			//Get full report.
 			$full_report = $wallet->get_report($tran_reportID);
 			//Get information from transaction.
-			$tran_amount = $full_report->amount;
-			$tran_from = $full_report->ref1;
-			$tran_message = $full_report->personalMessage->value;
-			echo '['.$tran_reportID.'] '.$tran_amount.'฿ '.$tran_type.' from '.$tran_from.' with message: '.$tran_message.'<br>';
-			//Ex. [12345678] 1500฿ from 0812345678 with message test
+			$tran_amount = $full_report->amount; // 1234
+			$tran_from = $full_report->ref1; // 0812345678
+			$tran_message = $full_report->personalMessage->value; // message
+			$tran_date = $full_report->section4->column1->cell1->value; // 31/01/17 23:59
+			$tran_id = $full_report->section4->column2->cell1->value; // 1234567890
 			//(Later)Do stuff.
 		}
 	}
@@ -62,6 +62,8 @@ if($wallet->login($username,$password)){
 			/*
 			Get lastest transaction report number of 'creditor'
 			Note: Different transaction type may use different report id group.
+			      ReportID is a unique id for your own account,
+				  but transaction id is the same for both sender and reciver account.
 			*/
 			$last_report = $tran->reportID;
 			break;
