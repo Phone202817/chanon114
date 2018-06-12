@@ -240,7 +240,12 @@ Make sure your script can write cookie.txt, chmod 755 to fix it.
 
 If you failed too many attempt to login, your account might get banned. You have to contact True Wallet support directly for further assistance.
 
-## Milestones
+- Somehow my script stop working.
+
+If the connecting variable return as "0", not "false". It means you make too many requests to the TrueWallet server. Add some captcha or timer to prevent this from happening. TrueWallet will let you make request again within 48 hours.
+
+
+## Milestones (canceled)
 
 - Add shortcut functions to easier get data.
 - Format codes and create a composer package.
@@ -260,7 +265,7 @@ This code is free to use. If you like it, please consider support me via paypal:
 
 True Wallet API Wrapper is 100% free and open-source.
 
-Copyright 2017 popiazaza
+Copyright 2018 popiazaza
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
