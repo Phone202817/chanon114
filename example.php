@@ -1,5 +1,5 @@
 <?php
-//Show all error, remove it once you finished you code.
+//Show all error, remove it once you finished your code.
 ini_set('display_errors', 1);
 //Include TrueWallet class.
 include_once('manager/TrueWallet.php');
@@ -10,7 +10,8 @@ $password = "";
 //Logout incase your previous session still exist, no need if you only use 1 user.
 $wallet->logout();
 //Login into TrueWallet
-if($wallet->login($username,$password)){
+$login = $wallet->login($username,$password);
+if($login){
 	//Get current profile.
 	if($profile = $wallet->get_profile()){
 		echo "<pre>";
@@ -73,7 +74,9 @@ if($wallet->login($username,$password)){
 	echo 'Lastest report: '.$last_report.'<br>';
 	//Logout
 	$wallet->logout();
+}elseif($login==0){
+	echo 'Please verify your account!';
 }else{
-	echo 'Login Failed!';
+	echo 'Login failed!';
 }
 ?>
