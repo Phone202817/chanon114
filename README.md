@@ -16,6 +16,8 @@ $wallet->login(username,password);
 ```
 See all functions down below, full example can be found in [example.php](https://github.com/popiazaza/truewallet-api-wrapper/blob/master/example.php)
 
+Tip: If you like to code with arrays ( $array['item'] ) instead of objects ( $object->item ), you can edit [TrueWallet.php](https://github.com/popiazaza/truewallet-api-wrapper/blob/master/manager/TrueWallet.php) and change from **json_decode($variable_name);** to **json_decode($variable_name,true);**
+
 ## Functions
 
 ### [function login(username,password)](https://github.com/popiazaza/truewallet-api-wrapper/blob/a18f800230301d229458a5937bb3fcd44629ed39/manager/TrueWallet.php#L14-L19)
