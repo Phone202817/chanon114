@@ -16,6 +16,7 @@ class Curl{
         curl_setopt($login, CURLOPT_COOKIEFILE, $this->cookie);
         curl_setopt($login, CURLOPT_TIMEOUT, 40000);
         curl_setopt($login, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($login, CURLINFO_HEADER_OUT, TRUE);
         curl_setopt($login, CURLOPT_URL, $url);
         curl_setopt($login, CURLOPT_USERAGENT, "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36");
         curl_setopt($login, CURLOPT_FOLLOWLOCATION, TRUE);
@@ -27,30 +28,36 @@ class Curl{
             die(curl_error($login));
         }else{
             if(strpos($curl_result, 'Whoops') !== false){
-    			return false;
-			}else{
-				return $curl_result;
-			}
-        }       
-    }                  
+                return false;
+            }else{
+                if(strpos(curl_getinfo($login,CURLINFO_HEADER_OUT), 'kyc_verify') !== false){
+                    return 0;
+                }else{
+                    return true;
+                }
+            }
+        }
+    }
 
     public function grab_page($site){
         $ch = curl_init();
-		curl_setopt($ch, CURLOPT_SSLVERSION, 6);
+        curl_setopt($ch, CURLOPT_SSLVERSION, 6);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
         curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36");
         curl_setopt($ch, CURLOPT_TIMEOUT, 40);
         curl_setopt($ch, CURLOPT_COOKIEFILE, $this->cookie);
         curl_setopt($ch, CURLOPT_URL, $site);
-		$curl_result = curl_exec($ch);
+        $curl_result = curl_exec($ch);
         if($curl_result === FALSE){
             die(curl_error($ch));
         }else{
-			if(strpos($curl_result, 'Whoops') !== false){
-    			return false;
-			}else{
-				return $curl_result;
-			}
+            if(strpos($curl_result, 'Whoops') !== false){
+                return false;
+            }elseif(strpos($curl_result, 'Too many Request') !== false){
+                return 0;
+            }else{
+                return $curl_result;
+            }
         }
     }
 }
